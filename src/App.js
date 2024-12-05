@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Routes, Route, Navigate } from "react-router-dom";  // Remove BrowserRouter from imports
+import Home from './component/Home';
+import SideBar from './component/SideBar';
+import "./styles.css";
+import Items from "./component/Items";
+import Banking from './component/Banking';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SideBar className="sidebar" />
+      <Routes>
+        <Route path="/" element={<Navigate to="/app/home/dashboard" />} />
+        <Route path="/app/home/dashboard" element={<Home />} />
+        <Route path="/app/home/gettingstarted" element={<Home />} />
+        <Route path="/app/home/announcements" element={<Home />} />
+        <Route path="/app/home/recentupdated" element={<Home />} />
+        <Route path="/app/inventory/items" element={<Items />} />
+        <Route path="/app/banking" element={<Banking/>}/>
+        
+      </Routes>
     </div>
   );
 }
