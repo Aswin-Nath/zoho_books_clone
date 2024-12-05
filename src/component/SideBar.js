@@ -17,7 +17,7 @@ function SideBar() {
       };
       
     return (
-        <div className={`bg-gray-600 text-white h-[950px] transition-all duration-200`} style={{ width: isSidebarClosed ? "80px" : "260px" }}>
+        <div className={`bg-gray-600 text-white h-[950px] transition-all duration-200`} style={{ width: isSidebarClosed ? "80px" : "400px" }}>
             <div className="bg-gray-700 p-4 flex items-center space-x-2 border-b border-gray-700">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-6 h-6 text-white"><path d="M361 502.5H24.5c-8 0-14.4-6.5-14.4-14.4V365.8c0-26.7 17-50.5 42.2-59.2l373-128c29-10 48.6-37.3 48.6-68 0-39.6-32.3-71.9-71.9-71.9H39v238.1c0 8-6.5 14.4-14.4 14.4S10 284.9 10 276.9V24.3c0-8 6.5-14.4 14.4-14.4h377.5c55.6 0 100.8 45.2 100.8 100.8 0 43-27.3 81.3-68.1 95.3l-373 128a33.72 33.72 0 00-22.7 31.9v107.8H361c30.1 0 58.5-11.7 79.8-33a112 112 0 0033-79.8c0-21.3-6-42.1-17.4-60.1a113.42 113.42 0 00-46.1-41.3 14.41 14.41 0 01-6.7-19.3c3.5-7.2 12.1-10.2 19.3-6.7 23.8 11.5 43.8 29.5 58 51.9 14.3 22.6 21.8 48.8 21.8 75.6 0 37.8-14.7 73.4-41.5 100.2A141.24 141.24 0 01361 502.5z"></path><path d="M172.4 211.9c-31.8 0-57.7-25.9-57.7-57.7s25.9-57.7 57.7-57.7 57.7 25.9 57.7 57.7-25.9 57.7-57.7 57.7zm0-86.6c-15.9 0-28.9 13-28.9 28.9s13 28.9 28.9 28.9 28.9-13 28.9-28.9-13-28.9-28.9-28.9zm144.7 290.4c-31.8 0-57.7-25.9-57.7-57.7s25.9-57.7 57.7-57.7 57.7 25.9 57.7 57.7-25.8 57.7-57.7 57.7zm0-86.6c-15.9 0-28.9 13-28.9 28.9s13 28.9 28.9 28.9 28.9-13 28.9-28.9-12.9-28.9-28.9-28.9z"></path></svg>
                 <span className="text-lg font-bold">Books</span>
@@ -51,15 +51,16 @@ function SideBar() {
                         )}
                     </Link>
                     {openSection === 'sales' && (
-                        <ul className="pl-12">
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Customers</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Quotes</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Sales Orders</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Delivery Challans</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Invoices</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Payments Received</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Credit Notes</Link></li>
+                       <ul className="pl-12">
+                            <li><Link to="/app/sales/Customers" className="block py-1 hover:text-gray-300">Customers</Link></li>
+                            <li><Link to="/app/sales/Quotes" className="block py-1 hover:text-gray-300">Quotes</Link></li>
+                            <li><Link to="/app/sales/SalesOrders" className="block py-1 hover:text-gray-300">Sales Orders</Link></li>
+                            <li><Link to="/app/sales/DeliveryChallans" className="block py-1 hover:text-gray-300">Delivery Challans</Link></li>
+                            <li><Link to="/app/sales/Invoices" className="block py-1 hover:text-gray-300">Invoices</Link></li>
+                            <li><Link to="/app/sales/PaymentsReceived" className="block py-1 hover:text-gray-300">Payments Received</Link></li>
+                            <li><Link to="/app/sales/CreditNotes" className="block py-1 hover:text-gray-300">Credit Notes</Link></li>
                         </ul>
+                     
                     )}
                 </div>
                 {/* Purchase */}
