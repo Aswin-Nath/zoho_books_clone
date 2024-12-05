@@ -3,10 +3,9 @@ import { Routes, Route, Navigate } from "react-router-dom";  // Remove BrowserRo
 import Home from './component/Home';
 import SideBar from './component/SideBar';
 import "./styles.css";
-// import Items from "./component/items/Items";
 import Banking from './component/Banking';
 import NewItems from './component/items/NewFile';
-
+import Customers from './component/sales/Customers';
 function App() {
   return (
     <div className="App">
@@ -20,7 +19,8 @@ function App() {
         <Route path="/app/home/recentupdated" element={<Home />} />
         <Route path="/app/inventory/NewItem" element={<NewItems />} />
         <Route path="/app/banking" element={<Banking/>}/>
-        <Route path="/app/sales/Customers" />
+        <Route path="/app/sales/Customers" element={<Customers/>}/>
+        
       </Routes>
       </div>
     </div>
