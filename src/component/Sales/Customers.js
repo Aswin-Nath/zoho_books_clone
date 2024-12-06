@@ -11,7 +11,6 @@ import {
   Grid,
   Select,
   MenuItem,
-  InputLabel,
   Button,
   Tabs,
   Tab,
@@ -189,9 +188,6 @@ function Customers() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" sx={{ mb: 3 }}>
-        New Customer
-      </Typography>
       <Box sx={{ p: 3, maxWidth: 800, margin: "0 auto" }}>
       <Typography variant="h5" sx={{ mb: 3 }}>
         New Customer
