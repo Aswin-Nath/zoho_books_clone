@@ -6,12 +6,20 @@ import "./styles.css";
 import Banking from './component/Banking';
 import NewItems from './component/items/NewFile';
 import Customers from './component/sales/Customers';
-import Quotes from './component/sales/Quotes';  // Add these components
+import Quotes from './component/sales/Quotes';
 import SalesOrders from './component/sales/SalesOrders';
 import DeliveryChallans from './component/sales/DeliveryChallans';
 import Invoices from './component/sales/Invoices';
 import PaymentsReceived from './component/sales/PaymentsReceived';
 import CreditNotes from './component/sales/CreditNotes';
+
+// Purchase Components
+import Vendors from './component/purchase/Vendors';
+import Expenses from './component/purchase/Expenses';
+import PurchaseOrders from './component/purchase/PurchaseOrders';
+import Bills from './component/purchase/Bills';
+import PaymentsMade from './component/purchase/PaymentsMade';
+import VendorCredits from './component/purchase/VendorCredits';
 
 function App() {
   return (
@@ -19,13 +27,20 @@ function App() {
       <div className='flex flex-row w-screen h-screen gap-[100px]'>
         <SideBar className="sidebar" />
         <Routes>
+          {/* Home Routes */}
           <Route path="/" element={<Navigate to="/app/home/dashboard" />} />
           <Route path="/app/home/dashboard" element={<Home />} />
           <Route path="/app/home/gettingstarted" element={<Home />} />
           <Route path="/app/home/announcements" element={<Home />} />
           <Route path="/app/home/recentupdated" element={<Home />} />
+
+          {/* Inventory Route */}
           <Route path="/app/inventory/NewItem" element={<NewItems />} />
+
+          {/* Banking Route */}
           <Route path="/app/banking" element={<Banking />} />
+
+          {/* Sales Routes */}
           <Route path="/app/sales/Customers" element={<Customers />} />
           <Route path="/app/sales/Quotes" element={<Quotes />} />
           <Route path="/app/sales/SalesOrders" element={<SalesOrders />} />
@@ -33,6 +48,14 @@ function App() {
           <Route path="/app/sales/Invoices" element={<Invoices />} />
           <Route path="/app/sales/PaymentsReceived" element={<PaymentsReceived />} />
           <Route path="/app/sales/CreditNotes" element={<CreditNotes />} />
+
+          {/* Purchase Routes */}
+          <Route path="/app/purchase/Vendors" element={<Vendors />} />
+          <Route path="/app/purchase/Expenses" element={<Expenses />} />
+          <Route path="/app/purchase/PurchaseOrders" element={<PurchaseOrders />} />
+          <Route path="/app/purchase/Bills" element={<Bills />} />
+          <Route path="/app/purchase/PaymentsMade" element={<PaymentsMade />} />
+          <Route path="/app/purchase/VendorCredits" element={<VendorCredits />} />
         </Routes>
       </div>
     </div>

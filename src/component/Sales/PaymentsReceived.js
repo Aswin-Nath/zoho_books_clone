@@ -7,16 +7,11 @@ import {
   Box,
   Paper,
   Grid,
-  InputAdornment,
-  IconButton,
   Radio,
   RadioGroup,
   FormControlLabel,
 } from '@mui/material';
 import { Formik, Form, Field } from 'formik';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import AddIcon from '@mui/icons-material/Add';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 const unpaidInvoicesData = [

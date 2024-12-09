@@ -76,12 +76,12 @@ function SideBar() {
                     </Link>
                     {openSection === 'purchase' && (
                         <ul className="pl-12">
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Vendors</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Expenses</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Purchase Orders</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Bills</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Payments Made</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Vendor Credits</Link></li>
+                            <li><Link to="/app/purchase/Vendors" className="block py-1 hover:text-gray-300">Vendors</Link></li>
+                            <li><Link to="/app/purchase/Expenses" className="block py-1 hover:text-gray-300">Expenses</Link></li>
+                            <li><Link to="/app/purchase/PurchaseOrders" className="block py-1 hover:text-gray-300">Purchase Orders</Link></li>
+                            <li><Link to="/app/purchase/Bills" className="block py-1 hover:text-gray-300">Bills</Link></li>
+                            <li><Link to="/app/purchase/PaymentsMade" className="block py-1 hover:text-gray-300">Payments Made</Link></li>
+                            <li><Link to="/app/purchase/VendorCredits" className="block py-1 hover:text-gray-300">Vendor Credits</Link></li>
                         </ul>
                     )}
                 </div>
