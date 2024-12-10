@@ -20,6 +20,9 @@ import PurchaseOrders from './component/purchase/PurchaseOrders';
 import Bills from './component/purchase/Bills';
 import PaymentsMade from './component/purchase/PaymentsMade';
 import VendorCredits from './component/purchase/VendorCredits';
+import Project from './component/Time_Tracking/Project';
+import TimeSheet from './component/Time_Tracking/TimeSheet';
+import ManualJournal from './component/accountant/ManualJournal';
 
 function App() {
   return (
@@ -56,6 +59,13 @@ function App() {
           <Route path="/app/purchase/Bills" element={<Bills />} />
           <Route path="/app/purchase/PaymentsMade" element={<PaymentsMade />} />
           <Route path="/app/purchase/VendorCredits" element={<VendorCredits />} />
+
+          {/* Time Tracking Routes */}
+          <Route path='/app/timetrack/projects' element={<Project/>}/>
+          <Route path='/app/timetrack/timesheet' element={<TimeSheet/>}/>
+
+          {/* Accountant */}
+          <Route path="/app/accountant/manualjournals" element={<ManualJournal/>}/>
         </Routes>
       </div>
     </div>

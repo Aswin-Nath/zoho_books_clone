@@ -98,8 +98,8 @@ function SideBar() {
                     </Link>
                     {openSection === 'timeTracking' && (
                         <ul className="pl-12">
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Projects</Link></li>
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Timesheet</Link></li>
+                            <li><Link to="/app/timetrack/projects" className="block py-1 hover:text-gray-300">Projects</Link></li>
+                            <li><Link to="/app/timetrack/timesheet" className="block py-1 hover:text-gray-300">Timesheet</Link></li>
                         </ul>
                     )}
                 </div>
@@ -116,7 +116,7 @@ function SideBar() {
                     </Link>
                     {openSection === 'accountant' && (
                         <ul className="pl-12">
-                            <li><Link to="#" className="block py-1 hover:text-gray-300">Manual Journals</Link></li>
+                            <li><Link to="/app/accountant/manualjournals" className="block py-1 hover:text-gray-300">Manual Journals</Link></li>
                             <li><Link to="#" className="block py-1 hover:text-gray-300">Bulk Update</Link></li>
                             <li><Link to="#" className="block py-1 hover:text-gray-300">Chart of Accounts</Link></li>
                             <li><Link to="#" className="block py-1 hover:text-gray-300">Transaction Locking</Link></li>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Tabs, Tab, Box, Typography, TextField, Button, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Grid } from '@mui/material';
+import { Tabs, Tab, Box, Typography, TextField, Button, MenuItem, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 function PaymentsMade() {
   const [activeTab, setActiveTab] = useState(0); // Default to the first tab
@@ -220,6 +220,7 @@ function PaymentsMade() {
                 margin="normal"
                 disabled
               />
+
               <TextField
                 sx={{ width: '50%' }}
                 required
@@ -228,6 +229,7 @@ function PaymentsMade() {
                 onChange={(e) => handleInputChange('paymentNumber', e.target.value)}
                 margin="normal"
               />
+
               <TextField
                 select
                 sx={{ width: '50%' }}
@@ -237,9 +239,11 @@ function PaymentsMade() {
                 onChange={(e) => handleInputChange('paymentMade', e.target.value)}
                 margin="normal"
               >
+
                 <MenuItem value="100">100</MenuItem>
                 <MenuItem value="500">500</MenuItem>
                 <MenuItem value="1000">1000</MenuItem>
+                
               </TextField>
               <Typography variant="body2" color="textSecondary" marginY={2}>
                 💡 Initiate payments for your bills directly from Zoho Books by integrating with one of our partner banks. Set up Now
