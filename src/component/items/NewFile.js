@@ -62,40 +62,56 @@ function NewItems() {
   ];
 
   return (
-    <Box sx={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-      <Typography variant="h5" gutterBottom>
+    <Box
+      sx={{
+        width: 430, // Increased width for better usability
+        mx: "auto",
+        p: 2,
+        border: "1px solid #ccc",
+        borderRadius: 2,
+        boxShadow: 1,
+        backgroundColor: "#fff",
+        overflowY: "auto",
+        position:"relative",
+        // top:"50px",
+        right:"400px"
+      }}
+    >
+      <Typography variant="subtitle1" gutterBottom>
         New Item
       </Typography>
 
       {/* Type Section */}
-      <FormControl sx={{ marginBottom: "20px" }}>
-        <Typography variant="subtitle1">Type</Typography>
+      <FormControl sx={{ mb: 1 }}>
+        <Typography variant="body2">Type</Typography>
         <RadioGroup row>
-          <FormControlLabel value="goods" control={<Radio />} label="Goods" />
-          <FormControlLabel value="service" control={<Radio />} label="Service" />
+          <FormControlLabel value="goods" control={<Radio size="small" />} label="Goods" />
+          <FormControlLabel value="service" control={<Radio size="small" />} label="Service" />
         </RadioGroup>
       </FormControl>
 
       {/* Name and Unit Section */}
-      <Grid container spacing={2} sx={{ marginBottom: "20px" }}>
-        <Grid item xs={12} sm={6}>
+      <Grid container spacing={1} sx={{ mb: 1 }}>
+        <Grid item xs={12}>
           <TextField
             label="Name"
             required
             fullWidth
             variant="outlined"
-            placeholder="Enter item name"
+            size="small"
+            placeholder="Item name"
           />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}>
           <FormControl fullWidth>
             <Select
               value={selectedUnit}
               onChange={(e) => setSelectedUnit(e.target.value)}
               displayEmpty
+              size="small"
             >
               <MenuItem value="" disabled>
-                Select or type to add
+                Select unit
               </MenuItem>
               {units.map((unit, index) => (
                 <MenuItem key={index} value={unit.value}>
@@ -108,33 +124,36 @@ function NewItems() {
       </Grid>
 
       {/* Sales Information */}
-      <Box sx={{ border: "1px solid #ccc", borderRadius: "8px", padding: "16px", marginBottom: "20px" }}>
+      <Box sx={{ border: "1px solid #ccc", borderRadius: 2, p: 1, mb: 2 }}>
         <FormControlLabel
           control={
             <Checkbox
               checked={salesEnabled}
               onChange={(e) => setSalesEnabled(e.target.checked)}
+              size="small"
             />
           }
           label="Sales Information"
         />
         {salesEnabled && (
-          <Grid container spacing={2} sx={{ marginTop: "10px" }}>
-            <Grid item xs={12} sm={6}>
+          <Grid container spacing={1} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
               <TextField
-                label="Selling Price (INR)"
+                label="Selling Price"
                 required
                 fullWidth
                 variant="outlined"
-                placeholder="Enter selling price"
+                size="small"
+                placeholder="Price"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth>
                 <Select
                   value={selectedSalesAccount}
                   onChange={(e) => setSelectedSalesAccount(e.target.value)}
                   displayEmpty
+                  size="small"
                 >
                   <MenuItem value="" disabled>
                     Select sales account
@@ -147,47 +166,41 @@ function NewItems() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Description"
-                multiline
-                rows={3}
-                fullWidth
-                placeholder="Enter description"
-              />
-            </Grid>
           </Grid>
         )}
       </Box>
 
       {/* Purchase Information */}
-      <Box sx={{ border: "1px solid #ccc", borderRadius: "8px", padding: "16px" }}>
+      <Box sx={{ border: "1px solid #ccc", borderRadius: 2, p: 1 }}>
         <FormControlLabel
           control={
             <Checkbox
               checked={purchaseEnabled}
               onChange={(e) => setPurchaseEnabled(e.target.checked)}
+              size="small"
             />
           }
           label="Purchase Information"
         />
         {purchaseEnabled && (
-          <Grid container spacing={2} sx={{ marginTop: "10px" }}>
-            <Grid item xs={12} sm={6}>
+          <Grid container spacing={1} sx={{ mt: 1 }}>
+            <Grid item xs={12}>
               <TextField
-                label="Cost Price (INR)"
+                label="Cost Price"
                 required
                 fullWidth
                 variant="outlined"
-                placeholder="Enter cost price"
+                size="small"
+                placeholder="Price"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <FormControl fullWidth>
                 <Select
                   value={selectedPurchaseAccount}
                   onChange={(e) => setSelectedPurchaseAccount(e.target.value)}
                   displayEmpty
+                  size="small"
                 >
                   <MenuItem value="" disabled>
                     Select purchase account
@@ -200,38 +213,16 @@ function NewItems() {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                label="Description"
-                multiline
-                rows={3}
-                fullWidth
-                placeholder="Enter description"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControl fullWidth>
-                <Select
-                  displayEmpty
-                  defaultValue=""
-                >
-                  <MenuItem value="" disabled>
-                    Select vendor
-                  </MenuItem>
-                  {/* Add vendor options here if necessary */}
-                </Select>
-              </FormControl>
-            </Grid>
           </Grid>
         )}
       </Box>
 
       {/* Save and Cancel Buttons */}
-      <Box sx={{ display: "flex", justifyContent: "flex-end", gap: "16px", marginTop: "20px" }}>
-        <Button variant="contained" color="primary">
+      <Box sx={{ display: "flex", justifyContent: "flex-end", gap: 1, mt: 2 }}>
+        <Button variant="contained" color="primary" size="small">
           Save
         </Button>
-        <Button variant="outlined" color="secondary">
+        <Button variant="outlined" color="secondary" size="small">
           Cancel
         </Button>
       </Box>

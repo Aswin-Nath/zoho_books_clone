@@ -19,16 +19,17 @@ import {
 
 function Project() {
   const [users, setUsers] = useState([
-    { id: 1, name: 'Aswinnath TE', email: 'aswinthalaa123123@gmail.com' },
+    { id: 1, name: 'Aswinnath TE', email: 'aswinthalaa123123@gmail.com', pay_rate: '' },
   ]);
   const [tasks, setTasks] = useState([
-    { id: 1, name: 'Task Name', description: 'Description', billable: true },
+    { id: 1, name: 'Task Name', description: 'Description', billable: true, hour_rate: '' },
   ]);
   const [customerName, setCustomerName] = useState('');
   const [billingMethod, setBillingMethod] = useState('');
+  const [price, setPrice] = useState('');
 
   const handleAddUser = () => {
-    const newUser = { id: users.length + 1, name: '', email: '' };
+    const newUser = { id: users.length + 1, name: '', email: '', pay_rate: '' };
     setUsers([...users, newUser]);
   };
 
@@ -44,7 +45,7 @@ function Project() {
   };
 
   const handleAddTask = () => {
-    const newTask = { id: tasks.length + 1, name: '', description: '', billable: false };
+    const newTask = { id: tasks.length + 1, name: '', description: '', billable: false, hour_rate: '' };
     setTasks([...tasks, newTask]);
   };
 
@@ -102,11 +103,22 @@ function Project() {
             onChange={(e) => setBillingMethod(e.target.value)}
             displayEmpty
           >
-
-            <MenuItem value="Hourly">Hourly</MenuItem>
-            <MenuItem value="Fixed">Fixed</MenuItem>
+            <MenuItem value="Fixed">Fixed Cost for Project</MenuItem>
+            <MenuItem value="ProjectHours">Based on Project Hours</MenuItem>
+            <MenuItem value="TaskHours">Based on Task Hours</MenuItem>
+            <MenuItem value="StaffHours">Based on Staff Hours</MenuItem>
           </Select>
         </FormControl>
+        {(billingMethod === 'Fixed' || billingMethod === 'ProjectHours') && (
+          <TextField
+            fullWidth
+            label="Price"
+            variant="outlined"
+            margin="normal"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+        )}
         <TextField
           fullWidth
           label="Description"
@@ -126,6 +138,7 @@ function Project() {
             <TableCell>S.NO</TableCell>
             <TableCell>User</TableCell>
             <TableCell>Email</TableCell>
+            {billingMethod === 'StaffHours' && <TableCell>Pay Rate</TableCell>}
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -147,6 +160,15 @@ function Project() {
                   placeholder="Enter User Email"
                 />
               </TableCell>
+              {billingMethod === 'StaffHours' && (
+                <TableCell>
+                  <TextField
+                    value={user.pay_rate}
+                    onChange={(e) => handleUserChange(index, 'pay_rate', e.target.value)}
+                    placeholder="Enter Pay Rate"
+                  />
+                </TableCell>
+              )}
               <TableCell>
                 <Button
                   color="error"
@@ -173,6 +195,7 @@ function Project() {
             <TableCell>S.NO</TableCell>
             <TableCell>Task Name</TableCell>
             <TableCell>Description</TableCell>
+            {billingMethod === 'TaskHours' && <TableCell>Hour Rate</TableCell>}
             <TableCell>Billable</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
@@ -195,6 +218,15 @@ function Project() {
                   placeholder="Enter Task Description"
                 />
               </TableCell>
+              {billingMethod === 'TaskHours' && (
+                <TableCell>
+                  <TextField
+                    value={task.hour_rate}
+                    onChange={(e) => handleTaskChange(index, 'hour_rate', e.target.value)}
+                    placeholder="Enter Hour Rate"
+                  />
+                </TableCell>
+              )}
               <TableCell>
                 <Checkbox
                   checked={task.billable}
@@ -221,7 +253,7 @@ function Project() {
       <FormControlLabel
         control={<Checkbox />}
         label="Add to the watchlist on my dashboard"
-        sx={{ mt: 4 }}style={{position:"relative",left:"140px",bottom:"10px"}}
+        sx={{ mt: 4 }}
       />
 
       <Box sx={{ mt: 4 }}>

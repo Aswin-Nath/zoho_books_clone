@@ -396,7 +396,6 @@ function Expenses() {
         </ButtonGroup>
       </Box>
 
-      {/* Dynamic Content */}
       <Box mt={3} p={3} border={1} borderColor="grey.300" borderRadius={2}>
         {sections[activeSection].content}
       </Box>
