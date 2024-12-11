@@ -4,7 +4,6 @@ import {
   Button,
   Checkbox,
   FormControl,
-  InputLabel,
   MenuItem,
   Select,
   Table,
@@ -18,7 +17,7 @@ import {
 
 function TimeSheet() {
   const [timeEntries, setTimeEntries] = useState([
-    { id: 1, projectId: 1, taskId: 1, userId: 1, hours: 0, date: '', billable: true, progress: 'InProgress', notes: '' },
+    { id: 1, projectId: '', taskId: '', userId: '', hours: 0, date: '', billable: true, progress: '', notes: '' },
   ]);
 
   const [projects] = useState([
@@ -49,7 +48,7 @@ function TimeSheet() {
   });
 
   const handleAddTimeEntry = () => {
-    const newEntry = { id: timeEntries.length + 1, projectId: '', taskId: '', userId: '', hours: 0, date: '', billable: false, progress: 'InProgress', notes: '' };
+    const newEntry = { id: timeEntries.length + 1, projectId: '', taskId: '', userId: '', hours: 0, date: '', billable: false, progress: '', notes: '' };
     setTimeEntries([...timeEntries, newEntry]);
   };
 
@@ -93,12 +92,15 @@ function TimeSheet() {
             <TableRow key={entry.id}>
               <TableCell>{index + 1}</TableCell>
               <TableCell>
-                <FormControl fullWidth>
-                  <InputLabel>Project</InputLabel>
+                <FormControl fullWidth sx={{ minWidth: 150 }}>
                   <Select
                     value={entry.projectId}
                     onChange={(e) => handleTimeEntryChange(index, 'projectId', e.target.value)}
+                    displayEmpty
                   >
+                    <MenuItem value="" disabled>
+                      Select Project
+                    </MenuItem>
                     {projects.map((project) => (
                       <MenuItem key={project.id} value={project.id}>
                         {project.name}
@@ -108,13 +110,16 @@ function TimeSheet() {
                 </FormControl>
               </TableCell>
               <TableCell>
-                <FormControl fullWidth>
-                  <InputLabel>Task</InputLabel>
+                <FormControl fullWidth sx={{ minWidth: 150 }}>
                   <Select
                     value={entry.taskId}
                     onChange={(e) => handleTimeEntryChange(index, 'taskId', e.target.value)}
                     disabled={!entry.projectId}
+                    displayEmpty
                   >
+                    <MenuItem value="" disabled>
+                      Select Task
+                    </MenuItem>
                     {(tasks[entry.projectId] || []).map((task) => (
                       <MenuItem key={task.id} value={task.id}>
                         {task.name}
@@ -124,13 +129,16 @@ function TimeSheet() {
                 </FormControl>
               </TableCell>
               <TableCell>
-                <FormControl fullWidth>
-                  <InputLabel>User</InputLabel>
+                <FormControl fullWidth sx={{ minWidth: 150 }}>
                   <Select
                     value={entry.userId}
                     onChange={(e) => handleTimeEntryChange(index, 'userId', e.target.value)}
                     disabled={!entry.projectId}
+                    displayEmpty
                   >
+                    <MenuItem value="" disabled>
+                      Select User
+                    </MenuItem>
                     {(users[entry.projectId] || []).map((user) => (
                       <MenuItem key={user.id} value={user.id}>
                         {user.name}
@@ -161,12 +169,15 @@ function TimeSheet() {
                 />
               </TableCell>
               <TableCell>
-                <FormControl fullWidth>
-                  <InputLabel>Progress</InputLabel>
+                <FormControl fullWidth sx={{ minWidth: 150 }}>
                   <Select
                     value={entry.progress}
                     onChange={(e) => handleTimeEntryChange(index, 'progress', e.target.value)}
+                    displayEmpty
                   >
+                    <MenuItem value="" disabled>
+                      Select Progress
+                    </MenuItem>
                     <MenuItem value="InProgress">In Progress</MenuItem>
                     <MenuItem value="Completed">Completed</MenuItem>
                   </Select>
