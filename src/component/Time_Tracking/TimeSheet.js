@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -13,42 +13,62 @@ import {
   TableRow,
   TextField,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
 function TimeSheet() {
   const [timeEntries, setTimeEntries] = useState([
-    { id: 1, projectId: '', taskId: '', userId: '', hours: 0, date: '', billable: true, progress: '', notes: '' },
+    {
+      id: 1,
+      projectId: "",
+      taskId: "",
+      userId: "",
+      hours: 0,
+      date: "",
+      billable: true,
+      progress: "",
+      notes: "",
+    },
   ]);
 
   const [projects] = useState([
-    { id: 1, name: 'Project Alpha' },
-    { id: 2, name: 'Project Beta' },
+    { id: 1, name: "Project Alpha" },
+    { id: 2, name: "Project Beta" },
   ]);
 
   const [tasks] = useState({
     1: [
-      { id: 1, name: 'Task A1' },
-      { id: 2, name: 'Task A2' },
+      { id: 1, name: "Task A1" },
+      { id: 2, name: "Task A2" },
     ],
     2: [
-      { id: 3, name: 'Task B1' },
-      { id: 4, name: 'Task B2' },
+      { id: 3, name: "Task B1" },
+      { id: 4, name: "Task B2" },
     ],
   });
 
   const [users] = useState({
     1: [
-      { id: 1, name: 'User 1' },
-      { id: 2, name: 'User 2' },
+      { id: 1, name: "User 1" },
+      { id: 2, name: "User 2" },
     ],
     2: [
-      { id: 3, name: 'User 3' },
-      { id: 4, name: 'User 4' },
+      { id: 3, name: "User 3" },
+      { id: 4, name: "User 4" },
     ],
   });
 
   const handleAddTimeEntry = () => {
-    const newEntry = { id: timeEntries.length + 1, projectId: '', taskId: '', userId: '', hours: 0, date: '', billable: false, progress: '', notes: '' };
+    const newEntry = {
+      id: timeEntries.length + 1,
+      projectId: "",
+      taskId: "",
+      userId: "",
+      hours: 0,
+      date: "",
+      billable: false,
+      progress: "",
+      notes: "",
+    };
     setTimeEntries([...timeEntries, newEntry]);
   };
 
@@ -64,7 +84,7 @@ function TimeSheet() {
   };
 
   return (
-    <Box sx={{ p: 4 }}>
+    <Box>
       <Typography variant="h4" gutterBottom>
         TimeSheet
       </Typography>
@@ -95,7 +115,9 @@ function TimeSheet() {
                 <FormControl fullWidth sx={{ minWidth: 150 }}>
                   <Select
                     value={entry.projectId}
-                    onChange={(e) => handleTimeEntryChange(index, 'projectId', e.target.value)}
+                    onChange={(e) =>
+                      handleTimeEntryChange(index, "projectId", e.target.value)
+                    }
                     displayEmpty
                   >
                     <MenuItem value="" disabled>
@@ -113,7 +135,9 @@ function TimeSheet() {
                 <FormControl fullWidth sx={{ minWidth: 150 }}>
                   <Select
                     value={entry.taskId}
-                    onChange={(e) => handleTimeEntryChange(index, 'taskId', e.target.value)}
+                    onChange={(e) =>
+                      handleTimeEntryChange(index, "taskId", e.target.value)
+                    }
                     disabled={!entry.projectId}
                     displayEmpty
                   >
@@ -132,7 +156,9 @@ function TimeSheet() {
                 <FormControl fullWidth sx={{ minWidth: 150 }}>
                   <Select
                     value={entry.userId}
-                    onChange={(e) => handleTimeEntryChange(index, 'userId', e.target.value)}
+                    onChange={(e) =>
+                      handleTimeEntryChange(index, "userId", e.target.value)
+                    }
                     disabled={!entry.projectId}
                     displayEmpty
                   >
@@ -151,7 +177,10 @@ function TimeSheet() {
                 <TextField
                   type="number"
                   value={entry.hours}
-                  onChange={(e) => handleTimeEntryChange(index, 'hours', e.target.value)}
+                  onChange={(e) =>
+                    handleTimeEntryChange(index, "hours", e.target.value)
+                  }
+                  className="w-28"
                   placeholder="Enter Hours"
                 />
               </TableCell>
@@ -159,20 +188,26 @@ function TimeSheet() {
                 <TextField
                   type="date"
                   value={entry.date}
-                  onChange={(e) => handleTimeEntryChange(index, 'date', e.target.value)}
+                  onChange={(e) =>
+                    handleTimeEntryChange(index, "date", e.target.value)
+                  }
                 />
               </TableCell>
               <TableCell>
                 <Checkbox
                   checked={entry.billable}
-                  onChange={(e) => handleTimeEntryChange(index, 'billable', e.target.checked)}
+                  onChange={(e) =>
+                    handleTimeEntryChange(index, "billable", e.target.checked)
+                  }
                 />
               </TableCell>
               <TableCell>
                 <FormControl fullWidth sx={{ minWidth: 150 }}>
                   <Select
                     value={entry.progress}
-                    onChange={(e) => handleTimeEntryChange(index, 'progress', e.target.value)}
+                    onChange={(e) =>
+                      handleTimeEntryChange(index, "progress", e.target.value)
+                    }
                     displayEmpty
                   >
                     <MenuItem value="" disabled>
@@ -186,7 +221,9 @@ function TimeSheet() {
               <TableCell>
                 <TextField
                   value={entry.notes}
-                  onChange={(e) => handleTimeEntryChange(index, 'notes', e.target.value)}
+                  onChange={(e) =>
+                    handleTimeEntryChange(index, "notes", e.target.value)
+                  }
                   placeholder="Enter Notes"
                 />
               </TableCell>
