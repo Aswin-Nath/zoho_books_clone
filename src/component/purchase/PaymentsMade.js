@@ -32,9 +32,10 @@ function PaymentsMade() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <div className='h-full overflow-y-auto'>
+        <Box sx={{ width: '100%' }}>
       {/* Vendor Dropdown */}
-      <Box sx={{ padding: 2 }}>
+      <Box sx={{ p: 2 }}>
         <TextField
           select
           fullWidth
@@ -348,6 +349,8 @@ function PaymentsMade() {
         )}
       </Box>
     </Box>
+    </div>
+    
   );
 }
 

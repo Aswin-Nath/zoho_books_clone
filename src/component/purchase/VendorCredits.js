@@ -76,15 +76,9 @@ function Credits() {
   return (
     <div className="h-full overflow-y-auto">
       <Box
-        sx={{
-          padding: "20px",
-          maxWidth: "1000px",
-          margin: "0 auto",
-          fontFamily: "Arial, sans-serif",
-        }}
-      >
+        sx={{p:4}}>
         {/* Upper Section */}
-        <Typography variant="h6" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Vendor Credit
         </Typography>
 

@@ -60,8 +60,8 @@ const PurchaseOrders = () => {
 
   return (
     <div className="h-full overflow-y-auto">
-      <Box mt={4}>
-        <Typography variant="h6" mb={2} fontWeight="bold">
+      <Box sx={{p:4}}>
+        <Typography variant="h4" mb={2}>
           New Purchase Order
         </Typography>
         <Grid container spacing={3}>

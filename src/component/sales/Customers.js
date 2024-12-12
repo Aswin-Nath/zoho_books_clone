@@ -269,9 +269,9 @@ function Customers() {
 
   return (
     <div className="h-full overflow-y-auto">
-      <Box sx={{ p: 3 }}>
+      <Box sx={{ p: 4 }}>
         <Box sx={{ width: "95%" }}>
-          <Typography variant="h5" sx={{ mb: 3 }}>
+          <Typography variant="h4" sx={{ mb: 3 }}>
             New Customer
           </Typography>
 

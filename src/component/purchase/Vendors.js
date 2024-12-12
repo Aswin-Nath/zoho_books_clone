@@ -555,7 +555,7 @@ function Vendors() {
 
   return (
     <div className="h-full overflow-y-auto">
-      <Container>
+      <Box sx={{p:4}}>
         <Typography variant="h4" gutterBottom>
           Add New Vendor
         </Typography>
@@ -665,7 +665,7 @@ function Vendors() {
             </Button>
           </Grid>
         </form>
-      </Container>
+      </Box>
     </div>
   );
 }

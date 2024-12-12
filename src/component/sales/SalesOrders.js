@@ -23,7 +23,7 @@ function SalesOrders() {
   return (
     <div className="h-full overflow-y-auto">
       <Box sx={{ p: 4 }}>
-        <Paper elevation={3} sx={{ p: 4 }}>
+        <Paper elevation={0} sx={{ p: 0 }}>
           <Typography variant="h4" sx={{ mb: 3 }}>
             New Sales Order
           </Typography>

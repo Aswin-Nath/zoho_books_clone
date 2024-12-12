@@ -171,11 +171,12 @@ function Bills() {
   );
 
   return (
-    <Box sx={{ padding: "20px", maxWidth: "1000px", margin: "0 auto", fontFamily: "Arial, sans-serif" }}>
+    <div className="h-full overflow-y-auto">
+        <Box sx={{ p:4}}>
       <div>
         {/* Upper Section */}
         <Box sx={{ marginBottom: "20px" }}>
-          <Typography variant="h6" gutterBottom>
+          <Typography variant="h4">
             New Bill or Credit Note
           </Typography>
 
@@ -365,6 +366,8 @@ function Bills() {
         </Box>
       </div>
     </Box>
+    </div>
+    
   );
 }
 
