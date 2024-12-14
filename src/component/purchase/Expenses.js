@@ -566,7 +566,8 @@ function Expenses() {
   ];
 
   return (
-    <Container sx={{ marginLeft: "0px" }}>
+    <div className="h-full overflow-y-auto">
+          <Container sx={{ marginLeft: "0px" }}>
       <Box my={3}>
         {sections.map((section, index) => (
           <Button
@@ -582,6 +583,8 @@ function Expenses() {
         {sections[activeSection].content}
       </Box>
     </Container>
+    </div>
+
   );
 }
 

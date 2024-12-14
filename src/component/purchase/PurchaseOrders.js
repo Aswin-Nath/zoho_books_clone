@@ -84,7 +84,8 @@ const PurchaseOrders = () => {
   };
 
   return (
-    <Box sx={{ p: 4 }}>
+    <div className="h-full overflow-y-auto">
+          <Box sx={{ p: 4 }}>
       <Typography variant="h4" mb={2}>
         New Purchase Order
       </Typography>
@@ -317,6 +318,8 @@ const PurchaseOrders = () => {
         </Grid>
       </Grid>
     </Box>
+    </div>
+
   );
 };
 
