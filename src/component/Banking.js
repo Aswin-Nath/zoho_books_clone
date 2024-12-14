@@ -127,22 +127,11 @@ function Banking() {
   return (
     <Box
       sx={{
-        width: 450, // Adjusted for sidebar width
-        height: 700, // Dynamic height
-        mx: "auto",
-        mt: 2,
-        p: 2,
-        border: "1px solid #ccc",
-        borderRadius: 1,
-        boxShadow: 1,
-        backgroundColor: "#fff",
+        p: 4,
         overflowY: "auto", // Enable scrolling if content overflows
-        position:"relative",
-        right:"390px",
-        bottom:"15px"
       }}
     >
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="h4" gutterBottom>
         Add Bank or Credit Card
       </Typography>
       <FormControl component="fieldset" sx={{ mb: 2 }}>

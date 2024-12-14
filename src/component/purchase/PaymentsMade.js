@@ -86,18 +86,14 @@ function PaymentsMade() {
                 margin="normal"
               />
               <TextField
-                select
                 sx={{ width: '50%' }}
                 required
                 label="Payment Made"
+                type="number"
                 value={formData.paymentMade}
                 onChange={(e) => handleInputChange('paymentMade', e.target.value)}
                 margin="normal"
-              >
-                <MenuItem value="100">100</MenuItem>
-                <MenuItem value="500">500</MenuItem>
-                <MenuItem value="1000">1000</MenuItem>
-              </TextField>
+              />
               <Typography variant="body2" color="textSecondary" marginY={2}>
                 💡 Initiate payments for your bills directly from Zoho Books by integrating with one of our partner banks. Set up Now
               </Typography>
@@ -105,9 +101,13 @@ function PaymentsMade() {
                 sx={{ width: '50%' }}
                 required
                 label="Payment Date"
+                type="date"
                 value={formData.paymentDate}
                 onChange={(e) => handleInputChange('paymentDate', e.target.value)}
                 margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
               <TextField
                 select
@@ -232,20 +232,14 @@ function PaymentsMade() {
               />
 
               <TextField
-                select
                 sx={{ width: '50%' }}
                 required
                 label="Payment Made"
+                type="number"
                 value={formData.paymentMade}
                 onChange={(e) => handleInputChange('paymentMade', e.target.value)}
                 margin="normal"
-              >
-
-                <MenuItem value="100">100</MenuItem>
-                <MenuItem value="500">500</MenuItem>
-                <MenuItem value="1000">1000</MenuItem>
-                
-              </TextField>
+              />
               <Typography variant="body2" color="textSecondary" marginY={2}>
                 💡 Initiate payments for your bills directly from Zoho Books by integrating with one of our partner banks. Set up Now
               </Typography>
@@ -266,9 +260,13 @@ function PaymentsMade() {
                 sx={{ width: '50%' }}
                 required
                 label="Payment Date"
+                type="date"
                 value={formData.paymentDate}
                 onChange={(e) => handleInputChange('paymentDate', e.target.value)}
                 margin="normal"
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
               <TextField
                 select
@@ -350,7 +348,6 @@ function PaymentsMade() {
       </Box>
     </Box>
     </div>
-    
   );
 }
 

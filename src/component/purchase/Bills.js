@@ -8,366 +8,283 @@ import {
   IconButton,
   Box,
   Button,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
+  ToggleButton,
+  ToggleButtonGroup,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CancelIcon from "@mui/icons-material/Cancel";
 
 function Bills() {
   const [vendor, setVendor] = useState("");
-  const [paymentTerm, setPaymentTerm] = useState("Due On Receipt");
-  const [billDate, setBillDate] = useState("");
   const [billNumber, setBillNumber] = useState("");
   const [orderNumber, setOrderNumber] = useState("");
+  const [billDate, setBillDate] = useState("");
+  const [dueDate, setDueDate] = useState("2024-12-14");
   const [subject, setSubject] = useState("");
-  const [billingAddress, setBillingAddress] = useState("");
-  const [creditNoteNumber, setCreditNoteNumber] = useState("");
-  const [vendorCreditDate, setVendorCreditDate] = useState("");
-  const [viewMode, setViewMode] = useState("Line Item Level");
-
+  const [discountType, setDiscountType] = useState("item"); // "item" or "transaction"
   const [rows, setRows] = useState([
-    { itemDetails: "", account: "", quantity: 1, rate: 0, customerDetails: "", amount: 0 },
+    { itemDetails: "", account: "", quantity: 1, rate: 0, discount: 0, customerDetails: "", amount: 0 },
   ]);
-  const [discount, setDiscount] = useState(0);
-  const [taxType, setTaxType] = useState("TDS");
-  const [taxValue, setTaxValue] = useState(0);
   const [adjustment, setAdjustment] = useState(0);
+  const [vendorAddress, setVendorAddress] = useState("");
 
-  const paymentOptions = [
-    "Net 15",
-    "Net 30",
-    "Net 45",
-    "Net 60",
-    "Due On Receipt",
-    "Due end of the month",
-    "Due end of next month",
-  ];
-
-  const vendorOptions = ["Vendor 1", "Vendor 2", "Vendor 3"];
-  const customerOptions = ["Customer 1", "Customer 2", "Customer 3"];
+  const itemOptions = ["Item 1", "Item 2", "Item 3"];
   const accountOptions = ["Account 1", "Account 2", "Account 3"];
+  const customerOptions = ["Customer 1", "Customer 2", "Customer 3"];
 
-  // Add new row function
-  const handleAddRow = () => {
-    setRows([
-      ...rows,
-      { itemDetails: "", account: "", quantity: 1, rate: 0, customerDetails: "", amount: 0 },
-    ]);
+  const handleVendorChange = (value) => {
+    setVendor(value);
+    if (value === "Vendor 1") {
+      setVendorAddress("123 Vendor St, Vendor City");
+    } else if (value === "Vendor 2") {
+      setVendorAddress("456 Supplier Rd, Supplier Town");
+    } else {
+      setVendorAddress("");
+    }
   };
 
-  // Remove row function
+  const handleAddRow = () => {
+    setRows([...rows, { itemDetails: "", account: "", quantity: 1, rate: 0, discount: 0, customerDetails: "", amount: 0 }]);
+  };
+
   const handleRemoveRow = (index) => {
     setRows(rows.filter((_, i) => i !== index));
   };
 
-  // Update row function
   const handleRowChange = (index, field, value) => {
     const updatedRows = rows.map((row, i) =>
-      i === index
-        ? { ...row, [field]: value, amount: (row.quantity || 0) * (row.rate || 0) }
-        : row
+      i === index ? { ...row, [field]: value, amount: row.quantity * row.rate * (1 - row.discount / 100) } : row
     );
     setRows(updatedRows);
   };
 
-  // Calculate subtotal
-  const calculateSubtotal = () => {
-    return rows.reduce((sum, row) => sum + row.amount, 0);
-  };
-
-  // Calculate total after discount and tax
-  const calculateTotal = () => {
-    const subtotal = calculateSubtotal();
-    const discountAmount = (subtotal * discount) / 100;
-    const taxAmount = taxType === "TDS" ? -taxValue : taxValue;
-    return subtotal - discountAmount + taxAmount + adjustment;
-  };
-
-  const renderLineItemLevel = () => (
-    <Box>
-      {rows.map((row, index) => (
-        <Box
-          key={index}
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            borderBottom: "1px solid #ddd",
-            paddingBottom: "10px",
-            marginBottom: "10px",
-          }}
-        >
-          <TextField
-            placeholder="Type or click to select an item"
-            fullWidth
-            value={row.itemDetails}
-            onChange={(e) => handleRowChange(index, "itemDetails", e.target.value)}
-            sx={{ flex: 2, marginRight: "10px" }}
-          />
-          <FormControl fullWidth sx={{ flex: 1, marginRight: "10px" }}>
-            <Select
-              value={row.account}
-              onChange={(e) => handleRowChange(index, "account", e.target.value)}
-              displayEmpty
-            >
-              <MenuItem value="">
-                <em>Select an Account</em>
-              </MenuItem>
-              {accountOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <TextField
-            type="number"
-            value={row.quantity}
-            onChange={(e) => handleRowChange(index, "quantity", parseFloat(e.target.value) || 0)}
-            sx={{ flex: 0.5, marginRight: "10px" }}
-          />
-          <TextField
-            type="number"
-            value={row.rate}
-            onChange={(e) => handleRowChange(index, "rate", parseFloat(e.target.value) || 0)}
-            sx={{ flex: 0.5, marginRight: "10px" }}
-          />
-          <FormControl fullWidth sx={{ flex: 1, marginRight: "10px" }}>
-            <Select
-              value={row.customerDetails}
-              onChange={(e) => handleRowChange(index, "customerDetails", e.target.value)}
-              displayEmpty
-            >
-              <MenuItem value="">
-                <em>Select a Customer</em>
-              </MenuItem>
-              {customerOptions.map((option) => (
-                <MenuItem key={option} value={option}>
-                  {option}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Typography sx={{ flex: 0.5 }}>{row.amount.toFixed(2)}</Typography>
-          <IconButton onClick={() => handleRemoveRow(index)}>
-            <CancelIcon />
-          </IconButton>
-        </Box>
-      ))}
-
-      <Button variant="outlined" onClick={handleAddRow} sx={{ marginBottom: "20px" }}>
-        Add New Row
-      </Button>
-    </Box>
-  );
-
-  const renderTransactionLevel = () => (
-    <Box>
-      <Typography>Transaction Level Component Placeholder</Typography>
-      {/* Add Transaction Level Details Here */}
-    </Box>
-  );
+  const calculateSubtotal = () => rows.reduce((sum, row) => sum + row.amount, 0);
 
   return (
-    <div className="h-full overflow-y-auto">
-        <Box sx={{ p:4}}>
-      <div>
-        {/* Upper Section */}
-        <Box sx={{ marginBottom: "20px" }}>
-          <Typography variant="h4">
-            New Bill or Credit Note
-          </Typography>
+    <Box p={4}>
+      <Typography variant="h5" mb={3}>New Bill</Typography>
 
-          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-            <Typography sx={{ width: "30%", fontWeight: "bold", color: "red" }}>Vendor Name*</Typography>
-            <Box sx={{ display: "flex", alignItems: "center", width: "70%" }}>
-              <FormControl fullWidth sx={{ marginRight: "10px" }}>
-                <Select
-                  value={vendor}
-                  onChange={(e) => setVendor(e.target.value)}
-                  displayEmpty
-                  fullWidth
-                >
-                  <MenuItem value="">
-                    <em>Select a Vendor</em>
-                  </MenuItem>
-                  {vendorOptions.map((vendor) => (
-                    <MenuItem key={vendor} value={vendor}>
-                      {vendor}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-              <IconButton>
-                <CancelIcon />
-              </IconButton>
-            </Box>
-          </Box>
+      {/* Vendor Section */}
+      <Box display="flex" alignItems="center" mb={2}>
+        <Typography sx={{ width: "20%" }}>Vendor Name*</Typography>
+        <FormControl fullWidth sx={{ flex: 1, mr: 2 }}>
+          <Select
+            value={vendor}
+            onChange={(e) => handleVendorChange(e.target.value)}
+            displayEmpty
+          >
+            <MenuItem value="">
+              <em>Select a Vendor</em>
+            </MenuItem>
+            <MenuItem value="Vendor 1">Vendor 1</MenuItem>
+            <MenuItem value="Vendor 2">Vendor 2</MenuItem>
+          </Select>
+        </FormControl>
+        <IconButton>
+          <SearchIcon />
+        </IconButton>
+      </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-            <Typography sx={{ width: "30%" }}>Credit Note#</Typography>
-            <TextField
-              fullWidth
-              value={creditNoteNumber}
-              onChange={(e) => setCreditNoteNumber(e.target.value)}
-              placeholder="Enter Credit Note Number"
-              sx={{ width: "70%" }}
-            />
-          </Box>
-
-          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-            <Typography sx={{ width: "30%" }}>Vendor Credit Date</Typography>
-            <TextField
-              type="date"
-              value={vendorCreditDate}
-              onChange={(e) => setVendorCreditDate(e.target.value)}
-              sx={{ width: "70%" }}
-            />
-          </Box>
-
-          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-            <Typography sx={{ width: "30%" }}>Order Number</Typography>
-            <TextField
-              fullWidth
-              value={orderNumber}
-              onChange={(e) => setOrderNumber(e.target.value)}
-              placeholder="Enter Order Number"
-              sx={{ width: "70%" }}
-            />
-          </Box>
-
-          <Box sx={{ display: "flex", alignItems: "center", marginBottom: "20px" }}>
-            <Typography sx={{ width: "30%" }}>Subject</Typography>
-            <TextField
-              fullWidth
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              placeholder="Enter Subject"
-              sx={{ width: "70%" }}
-            />
-          </Box>
+      {vendorAddress && (
+        <Box mb={2}>
+          <Typography variant="body1" fontWeight="bold">Vendor Address:</Typography>
+          <Typography>{vendorAddress}</Typography>
         </Box>
-      </div>
+      )}
 
-      <div>
-        {/* Lower Section */}
-        <Box>
-          <Box sx={{ display: "flex", justifyContent: "flex-end", marginBottom: "20px" }}>
-            <Button
-              variant="outlined"
-              onClick={() => setViewMode(viewMode === "Line Item Level" ? "Transaction Level" : "Line Item Level")}
-            >
-              Switch to {viewMode === "Line Item Level" ? "Transaction Level" : "Line Item Level"}
-            </Button>
-          </Box>
+      {/* Details Section */}
+      <Box display="flex" flexDirection="column" mb={2}>
+        <TextField
+          label="Bill#"
+          value={billNumber}
+          onChange={(e) => setBillNumber(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Bill Date"
+          type="date"
+          InputLabelProps={{ shrink: true }}
+          value={billDate}
+          onChange={(e) => setBillDate(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Due Date"
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Order Number"
+          value={orderNumber}
+          onChange={(e) => setOrderNumber(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+        <TextField
+          label="Subject"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+      </Box>
 
-          {viewMode === "Line Item Level" ? renderLineItemLevel() : renderTransactionLevel()}
-        </Box>
-
-        {/* Subtotal Section */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", padding: "20px", border: "1px solid #ddd" }}>
-          <Box sx={{ flex: 1 }}>
-            <Typography>Sub Total</Typography>
-            <Typography sx={{ fontWeight: "bold" }}>{calculateSubtotal().toFixed(2)}</Typography>
-
-            <TextField
-              label="Discount"
-              type="number"
-              value={discount}
-              onChange={(e) => setDiscount(parseFloat(e.target.value) || 0)}
-              sx={{ marginTop: "10px", marginBottom: "10px", width: "100%" }}
-              InputProps={{
-                endAdornment: <Typography>%</Typography>,
-              }}
-            />
-
-            <RadioGroup
-              row
-              value={taxType}
-              onChange={(e) => setTaxType(e.target.value)}
-              sx={{ marginTop: "10px" }}
-            >
-              <FormControlLabel value="TDS" control={<Radio />} label="TDS" />
-              <FormControlLabel value="TCS" control={<Radio />} label="TCS" />
-            </RadioGroup>
-
-            <Select
-              value={taxValue}
-              onChange={(e) => setTaxValue(parseFloat(e.target.value) || 0)}
-              displayEmpty
-              sx={{ width: "100%", marginTop: "10px" }}
-            >
-              <MenuItem value="">
-                <em>Select a Tax</em>
-              </MenuItem>
-              <MenuItem value={10}>10%</MenuItem>
-              <MenuItem value={20}>20%</MenuItem>
-            </Select>
-
-            <TextField
-              label="Adjustment"
-              type="number"
-              value={adjustment}
-              onChange={(e) => setAdjustment(parseFloat(e.target.value) || 0)}
-              fullWidth
-              sx={{ marginTop: "10px" }}
-            />
-
-            <Typography sx={{ fontWeight: "bold", marginTop: "10px" }}>
-              Total (₹) {calculateTotal().toFixed(2)}
-            </Typography>
-          </Box>
-        </Box>
-
-        {/* Notes and Upload Section */}
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            marginTop: "20px",
-          }}
+      {/* Discount Type Toggle */}
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        <ToggleButtonGroup
+          value={discountType}
+          exclusive
+          onChange={(e, value) => value && setDiscountType(value)}
+          sx={{ marginBottom: 2 }}
         >
-          <TextField
-            placeholder="Notes"
-            multiline
-            rows={2}
-            fullWidth
-            sx={{ flex: 0.7, marginRight: "20px" }}
-          />
-          <Box sx={{ flex: 0.3 }}>
-            <Button
-              variant="outlined"
-              component="label"
-              fullWidth
-              sx={{ marginBottom: "10px" }}
-            >
-              Upload File
-              <input type="file" hidden />
-            </Button>
-            <Typography>You can upload a maximum of 5 files, 10MB each.</Typography>
-          </Box>
-        </Box>
+          <ToggleButton value="item">At Line Item Level</ToggleButton>
+          <ToggleButton value="transaction">At Transaction Level</ToggleButton>
+        </ToggleButtonGroup>
+      </Box>
 
-        {/* Action Buttons */}
-        <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-          <Button variant="outlined">Save as Draft</Button>
-          <Button variant="contained" sx={{ backgroundColor: "#007bff", color: "#fff" }}>
-            Save as Open
-          </Button>
-          <Button variant="text" color="error">
-            Cancel
-          </Button>
+      {/* Item Table Section */}
+      <Box mb={2}>
+        <Box display="grid" gridTemplateColumns="2fr 2fr 1fr 1fr 1fr 2fr 1fr 50px" gap={1} fontWeight="bold" mb={1} borderBottom="1px solid #ccc" p={1}>
+          <Typography>ITEM DETAILS</Typography>
+          <Typography>ACCOUNT</Typography>
+          <Typography>QUANTITY</Typography>
+          <Typography>RATE</Typography>
+          {discountType === "item" && <Typography>DISCOUNT (%)</Typography>}
+          <Typography>CUSTOMER DETAILS</Typography>
+          <Typography>AMOUNT</Typography>
+          <Typography></Typography>
         </Box>
-      </div>
+        {rows.map((row, index) => (
+          <Box display="grid" gridTemplateColumns="2fr 2fr 1fr 1fr 1fr 2fr 1fr 50px" gap={1} alignItems="center" mb={1} key={index}>
+            <FormControl fullWidth>
+              <Select
+                value={row.itemDetails}
+                onChange={(e) => handleRowChange(index, "itemDetails", e.target.value)}
+                displayEmpty
+              >
+                <MenuItem value="">
+                  <em>Select Item</em>
+                </MenuItem>
+                {itemOptions.map((item, i) => (
+                  <MenuItem key={i} value={item}>{item}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl fullWidth>
+              <Select
+                value={row.account}
+                onChange={(e) => handleRowChange(index, "account", e.target.value)}
+                displayEmpty
+              >
+                <MenuItem value="">
+                  <em>Select Account</em>
+                </MenuItem>
+                {accountOptions.map((account, i) => (
+                  <MenuItem key={i} value={account}>{account}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <TextField
+              type="number"
+              value={row.quantity}
+              onChange={(e) => handleRowChange(index, "quantity", parseFloat(e.target.value) || 0)}
+              placeholder="Quantity"
+              fullWidth
+            />
+            <TextField
+              type="number"
+              value={row.rate}
+              onChange={(e) => handleRowChange(index, "rate", parseFloat(e.target.value) || 0)}
+              placeholder="Rate"
+              fullWidth
+            />
+            {discountType === "item" && (
+              <TextField
+                type="number"
+                value={row.discount}
+                onChange={(e) => handleRowChange(index, "discount", parseFloat(e.target.value) || 0)}
+                placeholder="Discount (%)"
+                fullWidth
+              />
+            )}
+            <FormControl fullWidth>
+              <Select
+                value={row.customerDetails}
+                onChange={(e) => handleRowChange(index, "customerDetails", e.target.value)}
+                displayEmpty
+              >
+                <MenuItem value="">
+                  <em>Select Customer</em>
+                </MenuItem>
+                {customerOptions.map((customer, i) => (
+                  <MenuItem key={i} value={customer}>{customer}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Typography>{row.amount.toFixed(2)}</Typography>
+            <IconButton onClick={() => handleRemoveRow(index)}>
+              <CancelIcon />
+            </IconButton>
+          </Box>
+        ))}
+        <Button variant="contained" onClick={handleAddRow} sx={{ mt: 2 }}>Add Row</Button>
+      </Box>
+
+      {/* Summary Section */}
+      <Box>
+        <Typography>Subtotal: {calculateSubtotal().toFixed(2)}</Typography>
+        {discountType === "transaction" && (
+          <TextField
+            label="Transaction Discount (%)"
+            type="number"
+            fullWidth
+            margin="normal"
+          />
+        )}
+        <TextField
+          label="Adjustment"
+          type="number"
+          value={adjustment}
+          onChange={(e) => setAdjustment(parseFloat(e.target.value) || 0)}
+          fullWidth
+          margin="normal"
+        />
+        <Typography>Total: {(calculateSubtotal() + adjustment).toFixed(2)}</Typography>
+      </Box>
+
+      {/* Notes and File Upload Section */}
+      <Box display="flex" justifyContent="space-between" alignItems="flex-start" mt={4}>
+        <TextField
+          label="Notes"
+          placeholder="Enter notes here"
+          multiline
+          rows={3}
+          fullWidth
+          sx={{ flex: 0.7, mr: 2 }}
+        />
+        <Box flex={0.3}>
+          <Button variant="outlined" component="label" fullWidth>
+            Upload Files
+            <input type="file" hidden multiple />
+          </Button>
+          <Typography variant="caption" display="block" mt={1}>
+            Maximum 5 files, 10MB each
+          </Typography>
+        </Box>
+      </Box>
+
+      {/* Actions */}
+      <Box display="flex" justifyContent="space-between" mt={3}>
+        <Button variant="outlined">Save as Draft</Button>
+        <Button variant="contained" color="primary">Save</Button>
+        <Button variant="text" color="error">Cancel</Button>
+      </Box>
     </Box>
-    </div>
-    
   );
 }
 

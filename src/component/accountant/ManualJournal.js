@@ -24,8 +24,8 @@ function ManualJournal() {
       account: "",
       description: "",
       contact: "",
-      debit: 0,
-      credit: 0,
+      debit: "",
+      credit: "",
     },
   ]);
   const [accounts, setAccounts] = useState([]);
@@ -41,7 +41,7 @@ function ManualJournal() {
   const addRow = () => {
     setRows([
       ...rows,
-      { account: "", description: "", contact: "", debit: 0, credit: 0 },
+      { account: "", description: "", contact: "", debit: '', credit: "" },
     ]);
   };
 

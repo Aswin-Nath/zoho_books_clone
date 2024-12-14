@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -20,6 +20,19 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 
 function SalesOrders() {
+  const [salesOrderNumber, setSalesOrderNumber] = useState("SO-00001");
+
+  useEffect(() => {
+    // Simulate fetching the next sales order number from an API or generating it dynamically
+    const fetchNextSalesOrderNumber = async () => {
+      // Example: Incrementing the last number (replace with your logic)
+      const nextNumber = parseInt(salesOrderNumber.split("-")[1]) + 1;
+      setSalesOrderNumber(`SO-${nextNumber.toString().padStart(5, "0")}`);
+    };
+
+    fetchNextSalesOrderNumber();
+  }, []);
+
   return (
     <div className="h-full overflow-y-auto">
       <Box sx={{ p: 4 }}>
@@ -30,7 +43,7 @@ function SalesOrders() {
           <Formik
             initialValues={{
               customerName: "",
-              salesOrderNumber: "SO-00002",
+              salesOrderNumber: salesOrderNumber,
               referenceNumber: "",
               salesOrderDate: "",
               expectedShipmentDate: "",
@@ -45,6 +58,7 @@ function SalesOrders() {
               termsAndConditions: "",
               files: null,
             }}
+            enableReinitialize
             onSubmit={(values) => {
               console.log(values);
             }}
@@ -73,16 +87,18 @@ function SalesOrders() {
                         }}
                       >
                         <MenuItem value="">Select or add a customer</MenuItem>
-                        {/* Add options here as needed */}
+                        <MenuItem value="Customer A">Customer A</MenuItem>
+                        <MenuItem value="Customer B">Customer B</MenuItem>
+                        <MenuItem value="Customer C">Customer C</MenuItem>
                       </Field>
                     </Grid>
                     <Grid item xs={12} sm={6}>
-                      <Field
+                      <TextField
                         name="salesOrderNumber"
                         label="Sales Order#"
                         fullWidth
+                        value={salesOrderNumber}
                         disabled
-                        as={TextField}
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -122,9 +138,7 @@ function SalesOrders() {
                         select
                         as={TextField}
                       >
-                        <MenuItem value="Due On Receipt">
-                          Due On Receipt
-                        </MenuItem>
+                        <MenuItem value="Due On Receipt">Due On Receipt</MenuItem>
                         <MenuItem value="Net 30">Net 30</MenuItem>
                         <MenuItem value="Net 60">Net 60</MenuItem>
                       </Field>
@@ -146,10 +160,10 @@ function SalesOrders() {
                           ),
                         }}
                       >
-                        <MenuItem value="">
-                          Select or add a delivery method
-                        </MenuItem>
-                        {/* Add options here as needed */}
+                        <MenuItem value="">Select or add a delivery method</MenuItem>
+                        <MenuItem value="Courier">Courier</MenuItem>
+                        <MenuItem value="Pickup">Pickup</MenuItem>
+                        <MenuItem value="Drop-Off">Drop-Off</MenuItem>
                       </Field>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -169,10 +183,10 @@ function SalesOrders() {
                           ),
                         }}
                       >
-                        <MenuItem value="">
-                          Select or manage salesperson
-                        </MenuItem>
-                        {/* Add options here as needed */}
+                        <MenuItem value="">Select or manage salesperson</MenuItem>
+                        <MenuItem value="Salesperson A">Salesperson A</MenuItem>
+                        <MenuItem value="Salesperson B">Salesperson B</MenuItem>
+                        <MenuItem value="Salesperson C">Salesperson C</MenuItem>
                       </Field>
                     </Grid>
                   </Grid>
@@ -198,7 +212,9 @@ function SalesOrders() {
                           }}
                         >
                           <MenuItem value="">Select an item</MenuItem>
-                          {/* Add item options here as needed */}
+                          <MenuItem value="Item A">Item A</MenuItem>
+                          <MenuItem value="Item B">Item B</MenuItem>
+                          <MenuItem value="Item C">Item C</MenuItem>
                         </TextField>
                       </Grid>
                       <Grid item xs={4} sm={2}>
@@ -279,10 +295,10 @@ function SalesOrders() {
                     </Grid>
                     <Grid item xs={12} sm={3}>
                       <Typography variant="body1" sx={{ mt: 2 }}>
-                        Sub Total:{" "}
+                        Sub Total: {" "}
                         {values.items.reduce(
                           (sum, item) => sum + item.amount,
-                          0,
+                          0
                         )}
                       </Typography>
                     </Grid>
@@ -329,10 +345,10 @@ function SalesOrders() {
                         variant="h6"
                         sx={{ textAlign: "right", fontWeight: "bold", mt: 2 }}
                       >
-                        Total (₹):{" "}
+                        Total (₹): {" "}
                         {values.items.reduce(
                           (sum, item) => sum + item.amount,
-                          0,
+                          0
                         ) *
                           (1 - values.discount / 100) +
                           parseFloat(values.adjustment || 0)}

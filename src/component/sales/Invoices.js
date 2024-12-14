@@ -73,7 +73,9 @@ function Invoice() {
                         }}
                       >
                         <MenuItem value="">Select or add a customer</MenuItem>
-                        {/* Add options here as needed */}
+                        <MenuItem value="Customer A">Customer A</MenuItem>
+                        <MenuItem value="Customer B">Customer B</MenuItem>
+                        <MenuItem value="Customer C">Customer C</MenuItem>
                       </Field>
                     </Grid>
                     <Grid item xs={12} sm={6} md={4}>
@@ -155,7 +157,9 @@ function Invoice() {
                         }}
                       >
                         <MenuItem value="">Select or Add Salesperson</MenuItem>
-                        {/* Add options here as needed */}
+                        <MenuItem value="John Doe">John Doe</MenuItem>
+                        <MenuItem value="Jane Smith">Jane Smith</MenuItem>
+                        <MenuItem value="Alex Johnson">Alex Johnson</MenuItem>
                       </Field>
                     </Grid>
                     <Grid item xs={12} md={8}>
@@ -190,7 +194,9 @@ function Invoice() {
                           }}
                         >
                           <MenuItem value="">Select an item</MenuItem>
-                          {/* Add item options here as needed */}
+                          <MenuItem value="Item A">Item A</MenuItem>
+                          <MenuItem value="Item B">Item B</MenuItem>
+                          <MenuItem value="Item C">Item C</MenuItem>
                         </TextField>
                       </Grid>
                       <Grid item xs={4} sm={2}>
@@ -263,7 +269,7 @@ function Invoice() {
                   >
                     <Grid item xs={12} sm={3}>
                       <Typography variant="body1" sx={{ mt: 2 }}>
-                        Sub Total:{" "}
+                        Sub Total: {" "}
                         {values.items
                           .reduce((sum, item) => sum + item.amount, 0)
                           .toFixed(2)}
@@ -332,7 +338,7 @@ function Invoice() {
                         as={TextField}
                       />
                       <Typography variant="body2" sx={{ mt: 1 }}>
-                        Adjustment Amount:{" "}
+                        Adjustment Amount: {" "}
                         {parseFloat(values.adjustment || 0).toFixed(2)}
                       </Typography>
                     </Grid>
@@ -341,7 +347,7 @@ function Invoice() {
                         variant="h6"
                         sx={{ textAlign: "right", fontWeight: "bold", mt: 2 }}
                       >
-                        Total (₹):{" "}
+                        Total (₹): {" "}
                         {(
                           values.items.reduce(
                             (sum, item) => sum + item.amount,

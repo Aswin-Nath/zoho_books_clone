@@ -73,7 +73,9 @@ function CreditNotes() {
                         }}
                       >
                         <MenuItem value="">Select or add a customer</MenuItem>
-                        {/* Add options here as needed */}
+                        <MenuItem value="Customer A">Customer A</MenuItem>
+                        <MenuItem value="Customer B">Customer B</MenuItem>
+                        <MenuItem value="Customer C">Customer C</MenuItem>
                       </Field>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -122,7 +124,9 @@ function CreditNotes() {
                         }}
                       >
                         <MenuItem value="">Select or Add Salesperson</MenuItem>
-                        {/* Add options here as needed */}
+                        <MenuItem value="Salesperson A">Salesperson A</MenuItem>
+                        <MenuItem value="Salesperson B">Salesperson B</MenuItem>
+                        <MenuItem value="Salesperson C">Salesperson C</MenuItem>
                       </Field>
                     </Grid>
                     <Grid item xs={12}>
@@ -157,7 +161,9 @@ function CreditNotes() {
                           }}
                         >
                           <MenuItem value="">Select an item</MenuItem>
-                          {/* Add item options here as needed */}
+                          <MenuItem value="Item A">Item A</MenuItem>
+                          <MenuItem value="Item B">Item B</MenuItem>
+                          <MenuItem value="Item C">Item C</MenuItem>
                         </TextField>
                       </Grid>
                       <Grid item xs={12} sm={3}>
@@ -173,7 +179,9 @@ function CreditNotes() {
                           }}
                         >
                           <MenuItem value="">Select an account</MenuItem>
-                          {/* Add account options here as needed */}
+                          <MenuItem value="Account A">Account A</MenuItem>
+                          <MenuItem value="Account B">Account B</MenuItem>
+                          <MenuItem value="Account C">Account C</MenuItem>
                         </TextField>
                       </Grid>
                       <Grid item xs={4} sm={2}>
@@ -252,7 +260,7 @@ function CreditNotes() {
                   >
                     <Grid item xs={12} sm={3}>
                       <Typography variant="body1" sx={{ mt: 2 }}>
-                        Sub Total:{" "}
+                        Sub Total: {" "}
                         {values.items
                           .reduce((sum, item) => sum + item.amount, 0)
                           .toFixed(2)}
@@ -321,7 +329,7 @@ function CreditNotes() {
                         as={TextField}
                       />
                       <Typography variant="body2" sx={{ mt: 1 }}>
-                        Adjustment Amount:{" "}
+                        Adjustment Amount: {" "}
                         {parseFloat(values.adjustment || 0).toFixed(2)}
                       </Typography>
                     </Grid>
@@ -330,7 +338,7 @@ function CreditNotes() {
                         variant="h6"
                         sx={{ textAlign: "right", fontWeight: "bold", mt: 2 }}
                       >
-                        Total (₹):{" "}
+                        Total (₹): {" "}
                         {(
                           values.items.reduce(
                             (sum, item) => sum + item.amount,
@@ -414,4 +422,3 @@ function CreditNotes() {
 }
 
 export default CreditNotes;
-

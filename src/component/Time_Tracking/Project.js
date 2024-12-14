@@ -30,7 +30,7 @@ function Project() {
     {
       id: 1,
       name: "Task Name",
-      description: "Description",
+      description: "",
       billable: true,
       hour_rate: "",
     },
@@ -176,7 +176,8 @@ function Project() {
                   />
                 </TableCell>
                 <TableCell>
-                  <TextField
+                  <TextField 
+                    sx={{width:"300px"}}
                     value={user.email}
                     onChange={(e) =>
                       handleUserChange(index, "email", e.target.value)
@@ -228,7 +229,8 @@ function Project() {
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
-          <TableBody>
+          <TableBody
+          >
             {tasks.map((task, index) => (
               <TableRow key={task.id}>
                 <TableCell>{index + 1}</TableCell>
@@ -243,6 +245,7 @@ function Project() {
                 </TableCell>
                 <TableCell>
                   <TextField
+                    sx={{width:"300px"}}
                     value={task.description}
                     onChange={(e) =>
                       handleTaskChange(index, "description", e.target.value)
@@ -287,9 +290,10 @@ function Project() {
         </Button>
 
         <FormControlLabel
+        
           control={<Checkbox />}
           label="Add to the watchlist on my dashboard"
-          sx={{ mt: 4 }}
+          sx={{ mt: 0,position:"relative",left:"900px",top:"30px"}}
         />
 
         <Box sx={{ mt: 4 }}>

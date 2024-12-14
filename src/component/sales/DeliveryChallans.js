@@ -65,7 +65,9 @@ function DeliveryChallan() {
                           }}
                         >
                           <MenuItem value="">Select or add a customer</MenuItem>
-                          {/* Add options here as needed */}
+                          <MenuItem value="Customer A">Customer A</MenuItem>
+                          <MenuItem value="Customer B">Customer B</MenuItem>
+                          <MenuItem value="Customer C">Customer C</MenuItem>
                         </Field>
                       </Grid>
                       <Grid item xs={12} sm={6}>
@@ -107,6 +109,7 @@ function DeliveryChallan() {
                           <MenuItem value="">Choose a proper challan type</MenuItem>
                           <MenuItem value="Regular">Regular</MenuItem>
                           <MenuItem value="Returnable">Returnable</MenuItem>
+                          <MenuItem value="One-Time">One-Time</MenuItem>
                         </Field>
                       </Grid>
                     </Grid>
@@ -132,7 +135,9 @@ function DeliveryChallan() {
                             }}
                           >
                             <MenuItem value="">Select an item</MenuItem>
-                            {/* Add item options here as needed */}
+                            <MenuItem value="Item 1">Item 1</MenuItem>
+                            <MenuItem value="Item 2">Item 2</MenuItem>
+                            <MenuItem value="Item 3">Item 3</MenuItem>
                           </TextField>
                         </Grid>
                         <Grid item xs={4} sm={2}>

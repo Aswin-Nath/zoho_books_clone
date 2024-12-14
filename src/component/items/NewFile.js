@@ -20,6 +20,7 @@ function NewItems() {
   const [selectedUnit, setSelectedUnit] = useState("");
   const [selectedSalesAccount, setSelectedSalesAccount] = useState("");
   const [selectedPurchaseAccount, setSelectedPurchaseAccount] = useState("");
+  const [preferredVendor, setPreferredVendor] = useState("");
 
   const units = [
     { label: "BOX", value: "box" },
@@ -61,23 +62,22 @@ function NewItems() {
     "Subcontractor",
   ];
 
+  const vendors = [
+    "Vendor A",
+    "Vendor B",
+    "Vendor C",
+    "Vendor D",
+  ];
+
   return (
     <Box
       sx={{
-        width: 430, // Increased width for better usability
         mx: "auto",
-        p: 2,
-        border: "1px solid #ccc",
-        borderRadius: 2,
-        boxShadow: 1,
+        p: 4,
         backgroundColor: "#fff",
-        overflowY: "auto",
-        position:"relative",
-        // top:"50px",
-        right:"400px"
-      }}
-    >
-      <Typography variant="subtitle1" gutterBottom>
+        overflowY: "auto"
+  }}>
+      <Typography variant="h4" gutterBottom>
         New Item
       </Typography>
 
@@ -164,6 +164,13 @@ function NewItems() {
                     </MenuItem>
                   ))}
                 </Select>
+                <textarea
+                  placeholder="Description"
+                  style={{
+                    marginTop: "7px",
+                    border: "1px solid black",
+                    borderRadius: "5px"                  }}
+                ></textarea>
               </FormControl>
             </Grid>
           </Grid>
@@ -208,6 +215,30 @@ function NewItems() {
                   {purchaseAccounts.map((account, index) => (
                     <MenuItem key={index} value={account}>
                       {account}
+                    </MenuItem>
+                  ))}
+                </Select>
+                <textarea
+                  placeholder="Description"
+                  style={{
+                    marginTop: "7px",
+                    border: "1px solid black",
+                    borderRadius: "5px"
+                  }}
+                ></textarea>
+                <Select
+                  value={preferredVendor}
+                  onChange={(e) => setPreferredVendor(e.target.value)}
+                  displayEmpty
+                  size="small"
+                  style={{ marginTop: "7px" }}
+                >
+                  <MenuItem value="" disabled>
+                    Select preferred vendor
+                  </MenuItem>
+                  {vendors.map((vendor, index) => (
+                    <MenuItem key={index} value={vendor}>
+                      {vendor}
                     </MenuItem>
                   ))}
                 </Select>

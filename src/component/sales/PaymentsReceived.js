@@ -21,12 +21,6 @@ const unpaidInvoicesData = [
     invoiceAmount: 500.0,
     amountDue: 200.0,
   },
-  {
-    date: "2024-06-05",
-    invoiceNumber: "INV-0002",
-    invoiceAmount: 1000.0,
-    amountDue: 1000.0,
-  },
 ];
 
 function RecordPayment() {
@@ -43,7 +37,7 @@ function RecordPayment() {
               amountReceived: "",
               bankCharges: "",
               paymentDate: "",
-              paymentNumber: "1",
+              paymentId: "1",
               paymentMode: "Cash",
               depositTo: "Petty Cash",
               referenceNumber: "",
@@ -86,10 +80,6 @@ function RecordPayment() {
                         as={TextField}
                         onChange={(e) => {
                           setFieldValue("amountReceived", e.target.value);
-                          setFieldValue(
-                            "amountSummary.amountReceived",
-                            e.target.value,
-                          );
                         }}
                       />
                     </Grid>
@@ -114,8 +104,8 @@ function RecordPayment() {
                     </Grid>
                     <Grid item xs={12} sm={6} md={4}>
                       <Field
-                        name="paymentNumber"
-                        label="Payment #"
+                        name="paymentId"
+                        label="Payment ID"
                         fullWidth
                         as={TextField}
                       />
@@ -184,7 +174,7 @@ function RecordPayment() {
                 {/* Lower Section */}
                 <Box>
                   <Typography variant="h6" sx={{ mb: 2 }}>
-                    Unpaid Invoices
+                    Unpaid Invoice
                   </Typography>
                   <Box
                     sx={{
@@ -218,30 +208,28 @@ function RecordPayment() {
                             </Typography>
                           </Grid>
                         </Grid>
-                        {unpaidInvoicesData.map((invoice, index) => (
-                          <Grid container spacing={2} key={index}>
-                            <Grid item xs={3}>
-                              <Typography variant="body2">
-                                {invoice.date}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={3}>
-                              <Typography variant="body2">
-                                {invoice.invoiceNumber}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={3}>
-                              <Typography variant="body2">
-                                {invoice.invoiceAmount.toFixed(2)}
-                              </Typography>
-                            </Grid>
-                            <Grid item xs={3}>
-                              <Typography variant="body2">
-                                {invoice.amountDue.toFixed(2)}
-                              </Typography>
-                            </Grid>
+                        <Grid container spacing={2}>
+                          <Grid item xs={3}>
+                            <Typography variant="body2">
+                              {unpaidInvoicesData[0].date}
+                            </Typography>
                           </Grid>
-                        ))}
+                          <Grid item xs={3}>
+                            <Typography variant="body2">
+                              {unpaidInvoicesData[0].invoiceNumber}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={3}>
+                            <Typography variant="body2">
+                              {unpaidInvoicesData[0].invoiceAmount.toFixed(2)}
+                            </Typography>
+                          </Grid>
+                          <Grid item xs={3}>
+                            <Typography variant="body2">
+                              {unpaidInvoicesData[0].amountDue.toFixed(2)}
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </Box>
                     ) : (
                       <Typography variant="body2" sx={{ mb: 1 }}>

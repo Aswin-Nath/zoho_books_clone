@@ -32,6 +32,7 @@ function Credits() {
 
   const vendorOptions = ["Vendor 1", "Vendor 2", "Vendor 3"];
   const accountOptions = ["Account 1", "Account 2", "Account 3"];
+  const itemOptions = ["Item 1", "Item 2", "Item 3"];
 
   // Add new row function
   const handleAddRow = () => {
@@ -55,7 +56,7 @@ function Credits() {
             [field]: value,
             amount: (row.quantity || 0) * (row.rate || 0),
           }
-        : row,
+        : row
     );
     setRows(updatedRows);
   };
@@ -75,8 +76,7 @@ function Credits() {
 
   return (
     <div className="h-full overflow-y-auto">
-      <Box
-        sx={{p:4}}>
+      <Box sx={{ p: 4 }}>
         {/* Upper Section */}
         <Typography variant="h4" gutterBottom>
           Vendor Credit
@@ -182,15 +182,24 @@ function Credits() {
               marginBottom: "10px",
             }}
           >
-            <TextField
-              placeholder="Type or click to select an item"
-              fullWidth
-              value={row.itemDetails}
-              onChange={(e) =>
-                handleRowChange(index, "itemDetails", e.target.value)
-              }
-              sx={{ flex: 2, marginRight: "10px" }}
-            />
+            <FormControl fullWidth sx={{ flex: 2, marginRight: "10px" }}>
+              <Select
+                value={row.itemDetails}
+                onChange={(e) =>
+                  handleRowChange(index, "itemDetails", e.target.value)
+                }
+                displayEmpty
+              >
+                <MenuItem value="">
+                  <em>Select an Item</em>
+                </MenuItem>
+                {itemOptions.map((item) => (
+                  <MenuItem key={item} value={item}>
+                    {item}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <FormControl fullWidth sx={{ flex: 1, marginRight: "10px" }}>
               <Select
                 value={row.account}
@@ -216,7 +225,7 @@ function Credits() {
                 handleRowChange(
                   index,
                   "quantity",
-                  parseFloat(e.target.value) || 0,
+                  parseFloat(e.target.value) || 0
                 )
               }
               sx={{ flex: 0.5, marginRight: "10px" }}
